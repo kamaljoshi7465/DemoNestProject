@@ -1,7 +1,7 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import { Blog } from './interfaces/blog.interface';
 import { BlogService } from './blog.service';
-import { CreateBlogDto } from './dto/create-blog.dto';
+import { CreateBlogDto, UpdateBlogDto } from './dto/blog.dto';
 
 @Controller('blogs')
 export class BlogController {
@@ -23,5 +23,16 @@ export class BlogController {
       throw new NotFoundException(`Blog with ID ${id} not found`);
     }
     return blog;
+  }
+
+  @Patch(':id')
+  async updateBlog(@Param('id') id: number, @Body() updateBlogDto: UpdateBlogDto): Promise<Blog> {
+    return this.blogService.updateBlog(+id, updateBlogDto);
+  }
+
+  @Delete(':id')
+  async deleteBlog(@Param('id') id: number) {
+    this.blogService.deleteBlog(+id);
+    return { message: `Blog with ID ${id} has been deleted` };
   }
 }

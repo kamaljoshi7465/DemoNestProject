@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Blog } from './interfaces/blog.interface';
-import { CreateBlogDto } from './dto/create-blog.dto';
+import { CreateBlogDto, UpdateBlogDto } from './dto/blog.dto';
 
 @Injectable()
 export class BlogService {
@@ -29,5 +29,26 @@ export class BlogService {
       throw new NotFoundException(`Blog with ID ${id} not found`);
     }
     return blog;
+  }
+
+  async updateBlog(id: number, updateBlogDto: UpdateBlogDto): Promise<Blog> {
+    try {
+      return await this.prisma.blog.update({
+        where: { id },
+        data: { ...updateBlogDto },
+      });
+    } catch (err) {
+      throw new InternalServerErrorException('An unexpected error occurred');
+    }
+  }
+
+  async deleteBlog(id: number) {
+    try {
+      await this.prisma.blog.delete({
+        where: { id },
+      });
+    } catch (err) {
+      throw new InternalServerErrorException('An unexpected error occurred');
+    }
   }
 }

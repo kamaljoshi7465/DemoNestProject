@@ -9,3 +9,10 @@ export class CreateBlogDto {
   @IsString()
   content: string;
 }
+
+
+export class UpdateBlogDto {
+  id: number;
+  title: string;
+  content: string;
+}
