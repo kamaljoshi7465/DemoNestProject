@@ -8,4 +8,5 @@ import { PrismaModule } from 'src/prisma/prisma.module';
   providers: [BlogService],
   controllers: [BlogController]
 })
+
 export class BlogModule {}

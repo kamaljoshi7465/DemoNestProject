@@ -5,9 +5,11 @@ import { DogsModule } from './dogs/dogs.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { BlogModule } from './blog/blog.module';
+import { PostModule } from './post/post.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
-  imports: [CatsModule, AuthModule, DogsModule, UserModule, PrismaModule, UserModule, BlogModule],
+  imports: [CatsModule, AuthModule, DogsModule, UserModule, PrismaModule, UserModule, BlogModule, PostModule, CommentModule],
   // controllers: [AppController],
   // providers: [AppService],
 })
